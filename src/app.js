@@ -1,5 +1,6 @@
 import express from "express";
 import db from "./config/dbConnect.js";
+import notas from "./model/Nota.js";
 
 db.on("error", console.log.bind(console, 'Erro de conexão'));
 db.once("open", () => {
@@ -11,18 +12,19 @@ const app = express();
 app.use(express.json());
 
 
-
-const notas = [
-    {id: 1, "titulo": "Estudar", "conteudo": "API REST"},
-    {id: 2, "titulo": "Cozinhar", "conteudo": "Panqueca"}
-]
+// const notas = [
+//     {id: 1, "titulo": "Estudar", "conteudo": "API REST"},
+//     {id: 2, "titulo": "Cozinhar", "conteudo": "Panqueca"}
+// ]
 
 app.get('/', (req, res) => {
     res.status(200, 'Postando suas notas!');
 })
 
 app.get('/notas', (req, res) => {
-    res.status(200).json(notas);
+    notas.find((err, notas) => {
+        res.status(200).json(notas);
+    })    
 })
 
 app.get('/notas/:id', (req, res) => {
