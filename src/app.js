@@ -1,6 +1,7 @@
 import express from "express";
 import db from "./config/dbConnect.js";
 import notas from "./model/Nota.js";
+import routes from './routes/index.js';
 
 db.on("error", console.log.bind(console, 'Erro de conexão'));
 db.once("open", () => {
@@ -11,30 +12,17 @@ const app = express();
 
 app.use(express.json());
 
+routes(app);
 
 // const notas = [
 //     {id: 1, "titulo": "Estudar", "conteudo": "API REST"},
 //     {id: 2, "titulo": "Cozinhar", "conteudo": "Panqueca"}
 // ]
 
-app.get('/', (req, res) => {
-    res.status(200, 'Postando suas notas!');
-})
-
-app.get('/notas', (req, res) => {
-    notas.find((err, notas) => {
-        res.status(200).json(notas);
-    })    
-})
 
 app.get('/notas/:id', (req, res) => {
    let index = buscaNotas(req.params.id);
    res.json(notas[index]);
-})
-
-app.post('/notas', (req, res) => {
-    notas.push(req.body);
-    res.status(201).send('Nota cadastrada com sucesso!')
 })
 
 app.put('/notas/:id', (req, res) => {
