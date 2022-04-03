@@ -19,9 +19,9 @@ class notaControllers {
             }
         })
     }
-
     static cadastrarNotas = (req, res) => {
         let nota = new notas(req.body);
+
         nota.save((err) => {
             if(err){
                 res.status(500).send({message: `${err.message} - falha ao cadastrar a nota.`});
@@ -39,6 +39,18 @@ class notaControllers {
             }else {
                 res.status(500).send({message: err.message});
             }
+        })
+    }
+    static excluirNota = (req, res) => {
+        const { id } = req.params;
+        
+        notas.findByIdAndDelete(id, (err) => {
+            if(!err) {
+                res.status(200).send('Nota removida com sucesso.');
+            }else {
+                res.status(500).send({message: err.message});
+            }
+           
         })
     }
 

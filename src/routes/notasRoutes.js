@@ -5,9 +5,9 @@ const router = express.Router();
 
 router
 .get('/notas', notaControllers.listarNotas)
-.get('/notas/id', notaControllers.listarNotaPorId)
+.get('/notas/:id', notaControllers.listarNotaPorId)
 .post('/notas', notaControllers.cadastrarNotas)
 .put('/notas/:id', notaControllers.atualizarNota)
-
+.delete('/notas/:id', notaControllers.excluirNota)
 
 export default router;

@@ -20,23 +20,12 @@ routes(app);
 // ]
 
 
-app.get('/notas/:id', (req, res) => {
-   let index = buscaNotas(req.params.id);
-   res.json(notas[index]);
-})
 
 app.put('/notas/:id', (req, res) => {
     let index = buscaNotas(req.params.id);
     notas[index] = req.body.titulo;
     notas[index] = req.body.conteudo;
     res.status(200).json(notas);
-})
-
-app.delete('/notas/:id', (req, res) => {
-    let { id } = req.params;
-    let index = buscaNotas(id);
-    notas.splice(index, 1);
-    res.send(`Nota ${index} removido com sucesso!`);
 })
 
 function buscaNotas(id){
